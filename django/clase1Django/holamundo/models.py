@@ -7,7 +7,7 @@ class Persona(models.Model):
 	apellidos = models.CharField(max_length=60)
 	def __unicode_(self):
 		return self.nombre
-
+		
 class Ramo(models.Model):
 	nombre = models.CharField(max_length=35)
 	def __unicode_(self):

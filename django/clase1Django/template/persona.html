@@ -4,12 +4,15 @@
 </head>
 
 <body>
-		<h1>Pagina de prueba</h1>
-		la suma es: {{ suma }}
-		
-		{% for valor in valores %}
-				<li>{{ valor }}</li>
-		{% endfor %}
+	<h2>Pagina de prueba</h2>
+	<form id = 'formulario'  method = 'POST' action='' >
+		{%csrf_token%}
+		{{ formulario.as_p }}
+		{% if todo_ok %}
+			<h1>Registro insertado</h1>
+		{% endif%}
+		<input type='submit' value ='enviar'>
+	</form>
 </body>
 
 </html>

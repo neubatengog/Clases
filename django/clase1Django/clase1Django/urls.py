@@ -8,6 +8,7 @@ urlpatterns = patterns('',
     # Examples:
     url(r'^$', 'holamundo.views.index'),
     url(r'^listado/$', 'holamundo.views.listado'),
+	url(r'^ingreso/$', 'holamundo.views.ingreso'),
 
     # Uncomment the admin/doc line below to enable admin documentation:
     # url(r'^admin/doc/', include('django.contrib.admindocs.urls')),
