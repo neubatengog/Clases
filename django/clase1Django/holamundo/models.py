@@ -11,11 +11,17 @@ class Persona(models.Model):
 class Ramo(models.Model):
 	nombre = models.CharField(max_length=35)
 	def __unicode_(self):
-		return self.nombre		
+		return self.nombre
+			
+	def __str_(self):
+		return '%s' % (self.nombre)	
 
 class Alumno(Persona):
 	matricula = models.PositiveIntegerField()
 	Ramos = models.ManyToManyField(Ramo)
 	def __unicode_(self):
 		return self.matricula
+		
+	def __str_(self):
+		return '%s' % (self.nombre)  
 		

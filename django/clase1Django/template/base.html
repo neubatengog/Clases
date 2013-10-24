@@ -1,0 +1,20 @@
+<html>
+<head>
+
+	</head>
+<body>
+	<nav>
+		<a href="{% url 'vista_principal' %}"> Home </a> </br>
+		<a href="{% url 'vista_listado' %}"> Listado </a> </br>
+		<a href="{% url 'vista_ingreso' %}"> Ingreso </a>
+	</nav>
+	
+	{% block titulo %} <h1> Principal </h1> {% endblock %}	
+
+	{% block contenido %}   
+		 Taller de certificacion de no se que
+	{% endblock %}
+	
+</body>
+
+</html>

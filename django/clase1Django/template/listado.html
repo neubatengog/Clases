@@ -1,14 +1,24 @@
-<html>
-<head>
+{% extends 'base.html' %}
 	
-</head>
-
-<body>
-		<h1>Listado</h1>
-		{%for persona in personas %}
-
-				<li>{{persona.nombre}} {{persona.apellidos}}</li>
+	{% block titulo %} <h1> Listado </h1> {% endblock %}
+	
+	{% block contenido %}  
+		
+		<table border = '1' >
+			<tr>
+				<td>Edicion</td>
+				<td>Borrado</td>
+				<td>Registros</td>
+			</tr>
+		
+		{%for persona in alumnos %}
+			
+			<tr>
+				<td><a href="{% url 'vista_edicion' persona.id %}" > Edicion </a></td>
+				<td><a href="{% url 'vista_edicion' persona.id %}" > Borrado</a></td>
+					<td>		{{persona.nombre}} {{persona.apellidos}}	</td>
+					 
+			</tr>
 		{%endfor%}
-</body>
-
-</html>
+		
+	{% endblock %}
