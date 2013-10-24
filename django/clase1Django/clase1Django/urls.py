@@ -6,11 +6,12 @@ admin.autodiscover()
 
 urlpatterns = patterns('',
     # Examples:
-    url(r'^$', 'holamundo.views.listado', name = 'vista_principal'),
+    url(r'^$', 'holamundo.views.prueba', name = 'vista_principal'),
     url(r'^listado/$', 'holamundo.views.listado', name = 'vista_listado'),
 	url(r'^ingreso/$', 'holamundo.views.ingreso', name= 'vista_ingreso'),
 	url(r'^edicion/(?P<alumno_id>\d+)/$', 'holamundo.views.edicion', name= 'vista_edicion'),
-	
+	url(r'^buscar/$', 'holamundo.views.buscar', name= 'vista_buscar'),
+	url(r'^eliminar/(?P<alumno_id>\d+)/$', 'holamundo.views.eliminar', name= 'vista_eliminar'),
 
     # Uncomment the admin/doc line below to enable admin documentation:
     # url(r'^admin/doc/', include('django.contrib.admindocs.urls')),

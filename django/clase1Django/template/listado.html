@@ -3,6 +3,10 @@
 	{% block titulo %} <h1> Listado </h1> {% endblock %}
 	
 	{% block contenido %}  
+		<form action="/buscar/" method="get">
+			<input type="text" name='q' />
+			<input type="submit" value="Buscar" />
+		</form>
 		
 		<table border = '1' >
 			<tr>
@@ -15,7 +19,7 @@
 			
 			<tr>
 				<td><a href="{% url 'vista_edicion' persona.id %}" > Edicion </a></td>
-				<td><a href="{% url 'vista_edicion' persona.id %}" > Borrado</a></td>
+				<td><a href="{% url 'vista_eliminar' persona.id %}" > Borrado</a></td>
 					<td>		{{persona.nombre}} {{persona.apellidos}}	</td>
 					 
 			</tr>

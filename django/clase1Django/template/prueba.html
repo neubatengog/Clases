@@ -1,0 +1,7 @@
+	<table border='1' >
+<form id = 'formulario'  method = 'POST' action='' >
+	{%csrf_token%}
+	{{ formulario.as_table }}
+	<input type='submit' value ='enviar'>
+</form>
+</table>
