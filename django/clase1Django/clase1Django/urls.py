@@ -7,6 +7,8 @@ admin.autodiscover()
 urlpatterns = patterns('',
     # Examples:
     url(r'^$', 'holamundo.views.prueba', name = 'vista_principal'),
+	 url(r'^login/$', 'holamundo.views.login_usuario', name = 'vista_login'),
+	 url(r'^logout/$', 'holamundo.views.logout_usuario', name = 'vista_logout'),
     url(r'^listado/$', 'holamundo.views.listado', name = 'vista_listado'),
 	url(r'^ingreso/$', 'holamundo.views.ingreso', name= 'vista_ingreso'),
 	url(r'^edicion/(?P<alumno_id>\d+)/$', 'holamundo.views.edicion', name= 'vista_edicion'),

@@ -1,6 +1,6 @@
 {% extends 'base.html' %}
 	
-	{% block titulo %} <h1> Listado </h1> {% endblock %}
+	{% block titulo %}  Listado  {% endblock %}
 	
 	{% block contenido %}  
 		<form action="/buscar/" method="get">
@@ -8,18 +8,18 @@
 			<input type="submit" value="Buscar" />
 		</form>
 		
-		<table border = '1' >
+		<table border = '0' >
 			<tr>
-				<td>Edicion</td>
-				<td>Borrado</td>
-				<td>Registros</td>
+				<td>Edicion/</td>
+				<td>Borrado/</td>
+				<td>Registros/</td>
 			</tr>
 		
 		{%for persona in alumnos %}
 			
 			<tr>
-				<td><a href="{% url 'vista_edicion' persona.id %}" > Edicion </a></td>
-				<td><a href="{% url 'vista_eliminar' persona.id %}" > Borrado</a></td>
+				<td><a href="{% url 'vista_edicion' persona.id %}" > Edicion/ </a></td>
+				<td><a href="{% url 'vista_eliminar' persona.id %}" > Borrado/</a></td>
 					<td>		{{persona.nombre}} {{persona.apellidos}}	</td>
 					 
 			</tr>

@@ -1,7 +1,17 @@
-	<table border='1' >
-<form id = 'formulario'  method = 'POST' action='' >
-	{%csrf_token%}
-	{{ formulario.as_table }}
-	<input type='submit' value ='enviar'>
-</form>
-</table>
+{% extends 'base.html' %}
+	
+	{% block titulo %} Ingreso {% endblock %}
+	
+	{% block contenido %}
+		{% if user.is_authenticated %}
+			Usuario{{ user.username }}
+		{% endif %}
+	<table border='0' >
+		<form id = 'formulario'  method = 'POST' action='' >
+		{%csrf_token%}
+		{{ formulario.as_table }}
+		<td colspan=2><input type='submit' value ='enviar'></td>
+		</form>
+	</table>
+
+{% endblock %}

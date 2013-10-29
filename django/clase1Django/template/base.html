@@ -3,16 +3,23 @@
 
 	</head>
 <body>
-	<nav>
-		<a href="{% url 'vista_principal' %}"> Home </a> </br>
-		<a href="{% url 'vista_listado' %}"> Listado </a> </br>
-		<a href="{% url 'vista_ingreso' %}"> Ingreso </a>
-	</nav>
-	
-	{% block titulo %} <h1> Principal </h1> {% endblock %}	
+	<header>
+		<nav>
+			<a href="{% url 'vista_principal' %}">Home/</a> 
+			<a href="{% url 'vista_listado' %}">Listado/</a>
+			<a href="{% url 'vista_ingreso' %}">Ingreso/</a>
+				{% if user.is_authenticated%}
+					Bienvenido:{{ user.username }}
+					<a href="{% url 'vista_logout' %}">Logout </a>
+				{% else %}
+					<a href="{% url 'vista_login' %}">Login </a>
+				{% endif %}
+		</nav>
+	</header>
+	<h2> {% block titulo %}  Principal  {% endblock %}	</h2>
 
 	{% block contenido %}   
-		 Taller de certificacion de no se que
+		 
 	{% endblock %}
 	
 </body>
