@@ -1,28 +1,33 @@
 {% extends 'base.html' %}
-	
-	{% block titulo %}  Listado  {% endblock %}
-	
-	{% block contenido %}  
-		<form action="/buscar/" method="get">
-			<input type="text" name='q' />
-			<input type="submit" value="Buscar" />
+
+
+{% block contenido %}
+
+	{% if estudiantes %}
+		<h2>Listado de estudiantes: </h2>
+		<form action="{% url 'buscar_estudiante' %}" method="get">
+		        <input type="text" name="q">
+		        <input type="submit" value="Buscar">
 		</form>
-		
-		<table border = '0' >
+			<table border=1>
 			<tr>
-				<td>Edicion/</td>
-				<td>Borrado/</td>
-				<td>Registros/</td>
-			</tr>
-		
-		{%for persona in alumnos %}
+				<td> Editar</td>
+				<td>eliminar</td>
+				<td>Estudiantes</td>
+			</tr>   
+			{% for estudiante in estudiantes %}
 			
-			<tr>
-				<td><a href="{% url 'vista_edicion' persona.id %}" > Edicion/ </a></td>
-				<td><a href="{% url 'vista_eliminar' persona.id %}" > Borrado/</a></td>
-					<td>		{{persona.nombre}} {{persona.apellidos}}	</td>
-					 
-			</tr>
-		{%endfor%}
+				<tr> 
+					<td><a href="{% url 'editar_estudiante' estudiante.id %}">Editar</a></td>
+					<td><a href="{% url 'editar_estudiante' estudiante.id %}">Borrar</a></td>
+					 <td>{{estudiante.nombre}}  {{estudiante.apellidos}}  Email:{{ estudiante.email}}</td>
+				</tr>
+				
+			{% endfor %}
 		
-	{% endblock %}
+			</table>
+	{% else %}
+		<h2> No hay registro de estudiantes </h2>
+	{% endif %}
+	
+{% endblock %}

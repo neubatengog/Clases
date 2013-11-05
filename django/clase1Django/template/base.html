@@ -1,27 +1,58 @@
+<!DOCTYPE HTML>
 <html>
-<head>
-
+	<head>
+		<link rel="stylesheet" href="/media/css/estilo.css">
 	</head>
-<body>
-	<header>
-		<nav>
-			<a href="{% url 'vista_principal' %}">Home/</a> 
-			<a href="{% url 'vista_listado' %}">Listado/</a>
-			<a href="{% url 'vista_ingreso' %}">Ingreso/</a>
-				{% if user.is_authenticated%}
-					Bienvenido:{{ user.username }}
-					<a href="{% url 'vista_logout' %}">Logout </a>
-				{% else %}
-					<a href="{% url 'vista_login' %}">Login </a>
-				{% endif %}
-		</nav>
-	</header>
-	<h2> {% block titulo %}  Principal  {% endblock %}	</h2>
+	<body>
+	<div id="contendor">
+		
+		
+			
+		<div id="menu">
+			<ul>
+				<li> 	{% if user.is_authenticated%}
+						Usuario:{{ user.username }}
+						<a href="{% url 'vista_logout' %}">Logout </a>
+					{% else %}
+						<a href="{% url 'vista_login' %}">Login </a>
+					{% endif %}
+				</li>
+				
+				<li><a href="{% url 'vista_indice'  %}">Inicio/</a></li>
+				
+			</ul>
+			<ul>
+				<li>Estudiante</li>
+					<ul>
+						<li><a href="{% url 'ingreso_estudiante' %}">Ingreso/</a></li>
+						<li><a href="{% url 'listar_estudiante' %}">Listado/</a></li>
+					</ul>
+			</ul>
+			
+			<ul>
+				<li>Profesor</li>
+					<ul>
+						<li><a href="{% url 'ingreso_profesor' %}">Ingreso/</a></li>
+						<li><a href="{% url 'listar_profesor' %}">Listado/</a></li>
+					</ul>
+			</ul>
+		
+		</div>
+		
 
-	{% block contenido %}   
-		 
-	{% endblock %}
-	
-</body>
-
+		<div id="contenido">
+		
+			{% block contenido %}
+			
+			
+			
+			{% endblock %}
+		
+		</div>
+		
+		<div id="pie">
+			Taller de ceritifcacion 2013
+		</div>
+	</div>
+	</body>
 </html>

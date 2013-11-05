@@ -1,0 +1,17 @@
+#contenedor {
+  width: 800px;
+}
+#cabecera {
+}
+#menu {
+  float: left;
+  width: 250px;
+  background-color: #808080;
+}
+#contenido {
+  float: left;
+  width: 550px;
+}
+#pie {
+  clear: both;
+}

@@ -1,19 +1,21 @@
 {% extends 'base.html' %}
-	
-	{% block titulo %} Ingreso {% endblock %}
-	
-	{% block contenido %}  
 
-	<table>
-	<form id = 'formulario'  method = 'POST' action='' >
-		{%csrf_token%}
-		{{ formulario.as_table }}
-		{% if todo_ok %}
-			<h1>Registro insertado</h1>
-		{% endif%}
-		<td colspan=2><input type='submit' value ='enviar'></td>
+{% block title %} Ingreso de estudiantes {% endblock %}
+
+{% block contenido %}
+{% if todo_ok %}
+	<h2> Datos ingresados correctamente</h2>
+	
+
+{% else %}
+		<form id='formulario' method = "POST"  action=''>{%csrf_token%}
+		<table>
+			{{ formulario.as_table}}	
+		</table>									
+		<p><input type="submit" value="Enviar"></p>
+		<form>
 		
-	</form>
-	</table>
-{% endblock %}
+{% endif %}	
+		
 
+{% endblock %}

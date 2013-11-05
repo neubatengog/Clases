@@ -1,5 +1,7 @@
-# Django settings for clase1Django project.
 import os
+import django
+
+#---------RUTA del proyecto
 ruta = os.path.dirname(os.path.realpath(__file__))
 
 DEBUG = True
@@ -23,9 +25,6 @@ DATABASES = {
     }
 }
 
-URL_LOGIN='/login/'
-
-
 # Hosts/domain names that are valid for this site; required if DEBUG is False
 # See https://docs.djangoproject.com/en/1.5/ref/settings/#allowed-hosts
 ALLOWED_HOSTS = []
@@ -34,7 +33,9 @@ ALLOWED_HOSTS = []
 # http://en.wikipedia.org/wiki/List_of_tz_zones_by_name
 # although not all choices may be available on all operating systems.
 # In a Windows environment this must be set to your system time zone.
-TIME_ZONE = 'America/Chicago'
+
+#------------------------------zona horarria
+TIME_ZONE = 'America/Santiago'
 
 # Language code for this installation. All choices can be found here:
 # http://www.i18nguy.com/unicode/language-identifiers.html
@@ -55,12 +56,14 @@ USE_TZ = True
 
 # Absolute filesystem path to the directory that will hold user-uploaded files.
 # Example: "/var/www/example.com/media/"
-MEDIA_ROOT = ''
+#
+#configuracion de media
+MEDIA_ROOT = os.path.join(ruta, '../media')
 
 # URL that handles the media served from MEDIA_ROOT. Make sure to use a
 # trailing slash.
 # Examples: "http://example.com/media/", "http://media.example.com/"
-MEDIA_URL = ''
+MEDIA_URL = '/media/'
 
 # Absolute path to the directory static files should be collected to.
 # Don't put anything in this directory yourself; store your static files
@@ -77,6 +80,7 @@ STATICFILES_DIRS = (
     # Put strings here, like "/home/html/static" or "C:/www/django/static".
     # Always use forward slashes, even on Windows.
     # Don't forget to use absolute paths, not relative paths.
+    os.path.join(ruta, '../static').replace('\\','/')
 )
 
 # List of finder classes that know how to find static files in
@@ -88,13 +92,12 @@ STATICFILES_FINDERS = (
 )
 
 # Make this unique, and don't share it with anybody.
-SECRET_KEY = 'oy(ghq=lnb&q6@=+8pczd4aqbxb+hrkv6dv_y!fgui-0p1nnd='
+SECRET_KEY = '2^m^4^ced6pz5q62c%cf(w52#4g(4t@0b9mr^3j8sua8^c(k=*'
 
 # List of callables that know how to import templates from various sources.
 TEMPLATE_LOADERS = (
     'django.template.loaders.filesystem.Loader',
     'django.template.loaders.app_directories.Loader',
-#     'django.template.loaders.eggs.Loader',
 )
 
 MIDDLEWARE_CLASSES = (
@@ -104,21 +107,22 @@ MIDDLEWARE_CLASSES = (
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     # Uncomment the next line for simple clickjacking protection:
-    # 'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    #'django.middleware.clickjacking.XFrameOptionsMiddleware',
 )
 
-ROOT_URLCONF = 'clase1Django.urls'
+ROOT_URLCONF = 'Holamundo.urls'
 
 # Python dotted path to the WSGI application used by Django's runserver.
-WSGI_APPLICATION = 'clase1Django.wsgi.application'
+WSGI_APPLICATION = 'Holamundo.wsgi.application'
 
 TEMPLATE_DIRS = (
     # Put strings here, like "/home/html/django_templates" or "C:/www/django/templates".
     # Always use forward slashes, even on Windows.
     # Don't forget to use absolute paths, not relative paths.
-	os.path.join(ruta, '../template').replace('\\','/')
+    os.path.join(ruta, '../template').replace('\\','/'),
 )
 
+#------Aplicaciones creadas e instaladas
 INSTALLED_APPS = (
     'django.contrib.auth',
     'django.contrib.contenttypes',
@@ -126,11 +130,12 @@ INSTALLED_APPS = (
     'django.contrib.sites',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+	'estudiante',
+	'profesor',
     # Uncomment the next line to enable the admin:
     'django.contrib.admin',
     # Uncomment the next line to enable admin documentation:
     # 'django.contrib.admindocs',
-	'holamundo',
 )
 
 SESSION_SERIALIZER = 'django.contrib.sessions.serializers.JSONSerializer'
@@ -140,6 +145,21 @@ SESSION_SERIALIZER = 'django.contrib.sessions.serializers.JSONSerializer'
 # the site admins on every HTTP 500 error when DEBUG=False.
 # See http://docs.djangoproject.com/en/dev/topics/logging for
 # more details on how to customize your logging configuration.
+# 
+# 
+# 
+# 
+# 
+
+#constantes creadas para redireccionamiento
+from django.core.urlresolvers import reverse_lazy
+LOGIN_URL = reverse_lazy('login')
+LOGIN_REDIRECT_URL = reverse_lazy('vista_listar')
+LOGOUT_URL = reverse_lazy('logout')
+
+
+
+
 LOGGING = {
     'version': 1,
     'disable_existing_loggers': False,
@@ -163,3 +183,5 @@ LOGGING = {
         },
     }
 }
+
+URL_LOGIN = '/login/'
