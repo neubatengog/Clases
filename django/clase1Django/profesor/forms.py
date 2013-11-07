@@ -9,3 +9,7 @@ class ProfesorForm(forms.Form):
 	apellidos = forms.CharField(required=True)
 	email = forms.EmailField(required=False)
 	ramos = forms.ModelMultipleChoiceField(queryset=Ramo.objects.all()) # empty_label=None
+
+class ProfesorFormulario(forms.ModelForm):
+	class Meta:
+		model = Profesor

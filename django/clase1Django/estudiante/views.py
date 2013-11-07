@@ -38,6 +38,7 @@ def index_view(request):
 @login_required(login_url=URL_LOGIN)
 def ingreso_estudiante(request):
 	todo_ok = False
+	titulo = "Ingresar estudiante"
 	if request.method == 'POST':
 		formulario = EstudianteFormulario(request.POST )
 		if formulario.is_valid():
@@ -45,15 +46,16 @@ def ingreso_estudiante(request):
 			estudiante=formulario.save(commit=False)
 			estudiante.save()	
 			formulario.save_m2m()
-			return HttpResponseRedirect(reverse ('vista_listar'))
+			return HttpResponseRedirect(reverse('listar_estudiante'))
 	else:
 		formulario = EstudianteFormulario()
-		valores = {'formulario': formulario, 'todo_ok':todo_ok}
-		return render_to_response('ingreso.html' ,valores ,context_instance = RequestContext(request))
+	valores = {'formulario': formulario, 'todo_ok':todo_ok , 'titulo':titulo}
+	return render_to_response('ingreso.html' ,valores ,context_instance = RequestContext(request))
 
 @login_required(login_url=URL_LOGIN)
 def editar_estudiante(request, estudiante_id):
 	todo_ok = False
+	titulo = "Editar estudiante"
 	try:
 		estudiante = Estudiante.objects.get(pk=estudiante_id)
 	except Estudiante.DoesNotExist: #excepcion si el estudinate no existe
@@ -68,18 +70,19 @@ def editar_estudiante(request, estudiante_id):
 			formulario.save_m2m()
 	else:
 		formulario = EstudianteFormulario(instance=estudiante)
-	valores = {'formulario': formulario, 'todo_ok':todo_ok}
+	valores = {'formulario': formulario, 'todo_ok':todo_ok , 'titulo':titulo}
 	return render_to_response('ingreso.html' ,valores ,context_instance = RequestContext(request))
 
 #Listar todas los estudiantes
 
 @login_required(login_url=URL_LOGIN)
 def listar_estudiante(request):
+	titulo = "Eestudiante"
 	try:
 		estudiantes = Estudiante.objects.all()
 	except Estudiante.DoesNotExist:
 		estudiantes = None
-	return render_to_response('listado.html', {'estudiantes':estudiantes}, context_instance = RequestContext(request))
+	return render_to_response('listado.html', {'estudiantes':estudiantes , 'titulo':titulo}, context_instance = RequestContext(request))
 
 def borrar_estudiante(request, estudiante_id):
 	Mensaje = "Borrar estudiante"
@@ -92,7 +95,7 @@ def borrar_estudiante(request, estudiante_id):
 		estudiante.delete()
 	else:
 		Mensaje = "estudiante no encontrado"
-	return HttpResponseRedirect('/listado/')
+	return HttpResponseRedirect(reverse ('vista_indice'))
 
 
 def buscar_estudiante(request):
@@ -128,7 +131,7 @@ def login_usuario(request):
 
 def logout_usuario(request):
 	logout(request)
-	return HttpResponseRedirect('/')
+	return HttpResponseRedirect(reverse ('vista_indice'))
 	
 
 	

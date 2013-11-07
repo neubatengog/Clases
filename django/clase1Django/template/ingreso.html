@@ -1,6 +1,6 @@
 {% extends 'base.html' %}
 
-{% block title %} Ingreso de estudiantes {% endblock %}
+{% block title %} Ingreso{% endblock %}
 
 {% block contenido %}
 {% if todo_ok %}
@@ -8,6 +8,8 @@
 	
 
 {% else %}
+		<h2>{{ titulo }}</h2>
+		
 		<form id='formulario' method = "POST"  action=''>{%csrf_token%}
 		<table>
 			{{ formulario.as_table}}	

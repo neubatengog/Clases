@@ -3,31 +3,72 @@
 
 {% block contenido %}
 
-	{% if estudiantes %}
-		<h2>Listado de estudiantes: </h2>
-		<form action="{% url 'buscar_estudiante' %}" method="get">
-		        <input type="text" name="q">
-		        <input type="submit" value="Buscar">
-		</form>
-			<table border=1>
-			<tr>
-				<td> Editar</td>
-				<td>eliminar</td>
-				<td>Estudiantes</td>
-			</tr>   
-			{% for estudiante in estudiantes %}
+	{% if estudiantes or profesores %}
+		<h2>{{ titulo }}</h2>
+		
+			{% if estudiantes %}
+				<form action="{% url 'buscar_estudiante' %}" method="get">
+				        <input type="text" name="q">
+				        <input type="submit" value="Buscar">
+				</form>
+					<table class="normal">
+					<tr>
+						<th scope="col"> Editar</th>
+						<th scope="col"> eliminar</th>
+						<th scope="col">{{ titulo }}</th>
+					</tr>
 			
+			
+				{% for estudiante in estudiantes %}
+				 
 				<tr> 
 					<td><a href="{% url 'editar_estudiante' estudiante.id %}">Editar</a></td>
-					<td><a href="{% url 'editar_estudiante' estudiante.id %}">Borrar</a></td>
-					 <td>{{estudiante.nombre}}  {{estudiante.apellidos}}  Email:{{ estudiante.email}}</td>
+					<td><a href="{% url 'borrar_estudiante' estudiante.id %}">Borrar</a></td>
+					 <td>{{estudiante.nombre}}  
+						{{estudiante.apellidos}} 
+						 Email:{{ estudiante.email}}
+						{% for ramo in estudiante.Ramos.all %}
+								<ul>
+									<li>{{ramo.nombre}}</li>
+								</ul>
+						{% endfor %}
+					</td>
 				</tr>
 				
-			{% endfor %}
-		
+				{% endfor %}
+			{% elif profesores %}
+				<form action="{% url 'buscar_profesor' %}" method="get">
+				        <input type="text" name="q">
+				        <input type="submit" value="Buscar">
+				</form>
+					<table class="normal">
+					<tr>
+						<th scope="col"> Editar</th>
+						<th scope="col"> eliminar</th>
+						<th scope="col">{{ titulo }}</th>
+					</tr>
+			
+			
+			
+				{% for profesor in profesores %}
+				<tr> 
+					<td><a href="{% url 'editar_profesor' profesor.id %}">Editar</a></td>
+					<td><a href="{% url 'borrar_profesor' profesor.id %}">Borrar</a></td>
+					 <td>{{profesor.nombre}}  
+						{{profesor.apellidos}} 
+						 Email:{{ profesor.email}}
+						{% for ramo in profesor.Ramos.all %}
+								<ul>
+									<li>{{ramo.nombre}}</li>
+								</ul>
+						{% endfor %}
+					</td>
+				</tr>
+				{% endfor %}
+			{% endif %}
 			</table>
 	{% else %}
-		<h2> No hay registro de estudiantes </h2>
+		<h2> No hay registro de {{ titulo }} </h2>
 	{% endif %}
 	
 {% endblock %}

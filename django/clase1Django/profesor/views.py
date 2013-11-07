@@ -5,7 +5,7 @@ from django.shortcuts import render_to_response
 
 from profesor.models import Profesor
 #Desde forms importamos la clase PersonasForm
-from profesor.forms import ProfesorForm
+from profesor.forms import ProfesorFormulario
 
 
 
@@ -39,48 +39,50 @@ def index_view(request):
 @login_required(login_url=URL_LOGIN)
 def ingreso_profesor(request):
 	todo_ok = False
+	titulo = "Ingresar profesor"
 	if request.method == 'POST':
-		formulario = ProfesorForm(request.POST )
+		formulario = ProfesorFormulario(request.POST )
 		if formulario.is_valid():
 			todo_ok = True
 			profesor=formulario.save(commit=False)
 			profesor.save()	
-			profesor.save_m2m()
-			return HttpResponseRedirect(reverse ('listar_profesor'))
+			formulario.save_m2m()
+			return HttpResponseRedirect(reverse('listar_profesor'))
 	else:
-		formulario =ProfesorForm()
-		valores = {'formulario': formulario, 'todo_ok':todo_ok}
-		return render_to_response('ingreso.html' ,valores ,context_instance = RequestContext(request))
+		formulario =ProfesorFormulario()
+	valores = {'formulario': formulario, 'todo_ok':todo_ok, 'titulo':titulo }
+	return render_to_response('ingreso.html' ,valores ,context_instance = RequestContext(request))
 
 @login_required(login_url=URL_LOGIN)
 def editar_profesor(request, profesor_id):
 	todo_ok = False
+	titulo = "Editar Profesor"
 	try:
-		profesor = Profesor.objects.get(pk=estudiante_id)
-	except Profesor.DoesNotExist: #excepcion si el estudinate no existe
-		
+		profesor = Profesor.objects.get(pk=profesor_id)
+	except Profesor.DoesNotExist: #excepcion si el profesor no existe
 		profesor = None
 	if request.method == 'POST' and profesor is not None:
-		formulario = ProfesorForm(request.POST, instance=estudiante)
+		formulario = ProfesorFormulario(request.POST, instance=profesor)
 		if formulario.is_valid():
 			todo_ok = True
 			profesor=formulario.save(commit=False)
 			profesor.save()	
-			profesor.save_m2m()
+			formulario.save_m2m()
 	else:
-		formulario = ProfesorForm(instance=profesor)
-	valores = {'formulario': formulario, 'todo_ok':todo_ok}
+		formulario = ProfesorFormulario(instance=profesor)
+	valores = {'formulario': formulario, 'todo_ok':todo_ok, 'titulo':titulo}
 	return render_to_response('ingreso.html' ,valores ,context_instance = RequestContext(request))
 
-#Listar todas los estudiantes
+#Listar todas los profesores
 
 @login_required(login_url=URL_LOGIN)
 def listar_profesor(request):
+	titulo = "profesor"
 	try:
 		profesores = Profesor.objects.all()
 	except Profesor.DoesNotExist:
 		profesores = None
-	return render_to_response('listado.html', {'estudiantes':profesores}, context_instance = RequestContext(request))
+	return render_to_response('listado.html', {'profesores':profesores , 'titulo':titulo}, context_instance = RequestContext(request))
 
 def borrar_profesor(request, profesor_id):
 	Mensaje = "Borrar profesor"
@@ -93,17 +95,16 @@ def borrar_profesor(request, profesor_id):
 		profesor.delete()
 	else:
 		Mensaje = "profesor no encontrado"
-	return HttpResponseRedirect('/listado/')
+	return HttpResponseRedirect(reverse ('listar_profesor'))
 
 
-# def buscar_profesor(request):
-# 	if 'q' in request.GET and request.GET['q']:
-# 		q = request.GET['q']
-# 		profesores = Profesor.objects.filter(Q(nombre__icontains=q) | Q(apellidos__icontains=q))
-# 	else:
-# 		profesores = None
-# 	return render_to_response('listado.html', {'estudiantes':profesores}, context_instance = RequestContext(request) )
-# 	
-# 	
+def buscar_profesor(request):
+	if 'q' in request.GET and request.GET['q']:
+		q = request.GET['q']
+		profesores = Profesor.objects.filter(Q(nombre__icontains=q) | Q(apellidos__icontains=q))
+	else:
+		profesores = None
+	return render_to_response('listado.html', {'profesores':profesores}, context_instance = RequestContext(request) )
+
 
 

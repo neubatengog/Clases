@@ -6,7 +6,6 @@
 #menu {
   float: left;
   width: 250px;
-  background-color: #808080;
 }
 #contenido {
   float: left;
@@ -15,3 +14,14 @@
 #pie {
   clear: both;
 }
+
+.normal {
+	width: 200px;
+	border: 1px solid #000;
+	border-collapse: collapse;
+}
+
+.normal th, .normal td {
+	border: 1px solid #000;
+}
+
